@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +22,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'dashboardTesting'])->name('admin.dashboard');
+
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
