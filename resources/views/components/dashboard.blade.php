@@ -22,7 +22,7 @@
             <x-dashboard-navigation/>
 
             <!-- Page Content -->
-            <main class="w-5/6">
+            <main class="w-full ml-60">
                 {{ $slot }}
             </main>
         </div>

@@ -1,14 +1,14 @@
-<div class="w-60">
+<div class="w-60 h-fit fixed">
 
 <div class="flex flex-grow flex-col border-r border-gray-200 bg-white">
-    <div class="flex flex-shrink-0 items-center px-4 h-[5vh]">
+    <div class="flex flex-shrink-0 items-center px-4 my-4 h-[5vh]">
         <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
     </div>
-    <div class="mt-5 flex flex-grow flex-col h-[85vh]">
+    <div class="flex flex-grow flex-col h-[83vh]">
         <nav class="flex-1 space-y-1 bg-white px-2 overflow-y-auto" aria-label="Sidebar">
             <div>
                 <!-- Current: "bg-gray-100 text-gray-900", Default: "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
-                <a href="#" class="bg-gray-100 text-gray-900 group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md">
+                <a href="{{ route('dashboard') }}" class=" @if(Route::is('dashboard')) bg-gray-100 text-gray-900 @else bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md">
                     <!--
                       Heroicon name: outline/home
 
@@ -22,7 +22,7 @@
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                <div class="space-y-1" x-data="{open: false}">
+                <div class="space-y-1" @if(str_contains(url()->current(), 'teams')) x-data="{ open: true }" @else x-data="{ open: false }" @endif>
                     <!-- Current: "bg-gray-100 text-gray-900", Default: "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
                     <button type="button" @click="open = !open" class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-controls="sub-menu-1" aria-expanded="false">
                         <!-- Heroicon name: outline/users -->
@@ -37,10 +37,10 @@
                     </button>
                     <!-- Expandable link section, show/hide based on state. -->
                     <div class="space-y-1" id="sub-menu-1" x-show="open" x-transition>
-                        <a href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" class="group flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Team Settings</a>
+                        <a href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" class="@if(Route::is('teams.show')) bg-gray-100 text-gray-900 @else bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif group flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium">Team Settings</a>
 
                         @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                            <a href="{{ route('teams.create') }}" class="group flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Members</a>
+                            <a href="{{ route('teams.create') }}" class="@if(Route::is('teams.create')) bg-gray-100 text-gray-900 @else bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif group flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium">Create Team</a>
                         @endcan
                     </div>
                 </div>
@@ -63,14 +63,14 @@
             </form>
         </nav>
     </div>
-    <div class="flex flex-shrink-0 border-t border-gray-200 p-4 h-[5vh]">
+    <div class="flex flex-shrink-0 border-t border-gray-200 p-4 h-[8vh]">
         <a href="{{ route('profile.show') }}" class="group block w-full flex-shrink-0">
             <div class="flex items-center">
                 <div>
-                    <img class="inline-block h-9 w-9 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <img class="inline-block h-9 w-9 rounded-full" src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&color=7F9CF5&background=EBF4FF" alt="">
                 </div>
                 <div class="ml-3">
-                    <p class="text-sm font-medium text-gray-700 group-hover:text-gray-900">Tom Cook</p>
+                    <p class="text-sm font-medium text-gray-700 group-hover:text-gray-900">{{ Auth::user()->name }}</p>
                     <p class="text-xs font-medium text-gray-500 group-hover:text-gray-700">{{ Auth::user()->currentTeam->name }}</p>
                 </div>
             </div>
