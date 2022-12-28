@@ -1,6 +1,5 @@
 @section('breadcrumb') {!! $breadcrumb !!} @endsection
 
 <x-dashboard>
-    Testing Dashboard
+    <livewire:admin-review-form/>
 </x-dashboard>
-
